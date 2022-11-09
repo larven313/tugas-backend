@@ -48,3 +48,6 @@ Route::put('/students/{id}', [StudentController::class, 'update']);
 
 // method destroy
 Route::delete('/students/{id}', [StudentController::class, 'destroy']);
+
+// method show
+Route::get('/students/{id}', [StudentController::class, 'show']);

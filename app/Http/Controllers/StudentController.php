@@ -70,7 +70,21 @@ class StudentController extends Controller
      */
     public function show($id)
     {
-        //
+        $student = Student::find($id);
+        if ($student) {
+            $data = [
+                'message' => "Get Detail Student",
+                'data' => $student
+            ];
+
+            return response($data, 200);
+        } else {
+            $data = [
+                'message' => "Data not found"
+            ];
+
+            return response($data, 404);
+        }
     }
 
     /**
@@ -93,25 +107,36 @@ class StudentController extends Controller
      */
     public function update(Request $request, $id)
     {
-        // ambil data berdasarkan id
-        $students_edit = Student::find($id);
+        // cari update data
+        // cari data yang ingin di-update apakah ada atau tidak
+        // jika ada maka update datanya
+        // jika tidak ada maka munculkan pesan data tidak ada
+        $student = Student::find($id);
 
 
-        $students_edit->nama = $request->nama;
-        $students_edit->nim = $request->nim;
-        $students_edit->email = $request->email;
-        $students_edit->jurusan = $request->jurusan;
 
+        if ($student) {
+            $input = [
+                'nama' => $request->nama ?? $student->nama,
+                'nim' => $request->nim ?? $student->nim,
+                'email' => $request->email ?? $student->email,
+                'jurusan' => $request->jurusan ?? $student->jurusan
+            ];
+            $student->update($input);
 
-        $students_edit->save();
+            $data = [
+                'message' => 'Data is updated',
+                'data' => $student
+            ];
 
-        $response = [
-            'message' => 'Updated is successfully',
-            'data' => $students_edit
-        ];
+            return response($data, 200);
+        } else {
+            $data = [
+                'message' => "Data not found"
+            ];
 
-        return response($response, 200);
-        // return $request->nama;
+            return response($data, 404);
+        }
     }
 
     /**
@@ -122,14 +147,26 @@ class StudentController extends Controller
      */
     public function destroy($id)
     {
-        $students_delete = Student::FindOrFail($id);
+        // cari id
+        // jika ada, hapus data
+        // jika tidak ada, kembalikan pesan tidak ada
 
-        $students_delete->delete();
+        $student = Student::find($id);
 
-        $response = [
-            'message' => 'Deleted is successfully'
-        ];
+        if ($student) {
+            $student->delete();
 
-        return $response;
+            $data = [
+                'message' => 'Data is deleted'
+            ];
+
+            return response($data, 200);
+        } else {
+            $data = [
+                'message' => "Data not found"
+            ];
+
+            return response($data, 404);
+        }
     }
 }
