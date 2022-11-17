@@ -220,7 +220,7 @@ class PatientController extends Controller
     public function search($name)
     {
         //cari data berdasarkan nama
-        $patient = Patient::where('name', '=', $name)->get();
+        $patient = Patient::where('name', 'like', '%' . $name . '%')->get();
 
         if ($patient) {
             $data = [
@@ -293,7 +293,7 @@ class PatientController extends Controller
         // total data dead
         $total = Patient::where('status', '=', 'dead')->get()->count();
 
-        if ($patient) {
+        if ($total != null) {
             $data = [
                 'message' => 'Get dead resource',
                 'total' => $total,
