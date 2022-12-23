@@ -1,47 +1,53 @@
+// import model Students
+const Student = require("../models/Student");
+
 // TODO 3: Import data students dari folder data/students.js
-const students = require("../data/students");
+// const students = require("../data/students");
 
 
 
 // Membuat Class StudentController
 class StudentController {
-    index(req, res) {
+   async index(req, res) {
       // TODO 4: Tampilkan data students
-    
-      const data = {
-        message: "Menampilkan semua students",
-        data: students,
-      };
+      // Student.all(function(result) {
+      //   const data = {
+      //     message: "Menampilkan semua student",
+      //     data :result
+      //   }
+      // })
+    const students = await Student.all();
+    const data = {
+      message : "Menampilkan semua student",
+      data: students
+    }
   
-      res.json(data);
+      
+      res.status(200).json(data);
     }
   
     store(req, res) {
-      const { id } = req.body;
-      const { nama } = req.body;
-      const { kelas } = req.body;
+      // const { id } = req.body;
       // TODO 5: Tambahkan data students
-      students.push({id, nama, kelas});
+      
       
       const data = {
-        message: `Menambahkan data student: ${nama}`,
-        data: students,
+        message: `Menambahkan data student: `,
+        // data: students,
       };
   
       res.json(data);
     }
   
     update(req, res) {
-      const { id } = req.params;
-      const { nama } = req.body;
-      const { kelas } = req.body;
+      // const { id } = req.params;
   
       // TODO 6: Update data students
-      students[id-1].nama = nama;
-      students[id-1].kelas = kelas;
+      // students[id-1].nama = nama;
+      // students[id-1].kelas = kelas;
       const data = {
-        message: `Mengedit student id ${id}, nama ${nama}`,
-        data: students,
+        message: `Mengedit student id ${id}, nama `,
+        // data: students,
       };
   
       res.json(data);
@@ -51,10 +57,10 @@ class StudentController {
       const { id } = req.params;
   
       // TODO 7: Hapus data students
-      students.splice(id-1,1);
+      
       const data = {
         message: `Menghapus student id ${id}`,
-        data: students,
+        // data: students,
       };
   
       res.json(data);
