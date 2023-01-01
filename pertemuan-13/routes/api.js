@@ -11,12 +11,15 @@ router.get("/", (req, res) => {
   res.send("Hello Express");
 });
 
-router.get("/students", StudentController.index);
+router.get("/students",StudentController.index);
 router.post("/students",[
   body('nim').isLength({min:4}).withMessage("Input nim minimum 4 karakter"),
   body('nama').isLength({min:3}).withMessage("Input nama minimum 3 karakter")
 ], StudentController.store);
-router.put("/students/:id", StudentController.update);
+router.put("/students/:id",[
+  body('nim').isLength({min:4}).withMessage("Input nim minimum 4 karakter"),
+  body('nama').isLength({min:3}).withMessage("Input nama minimum 3 karakter")
+], StudentController.update);
 router.delete("/students/:id", StudentController.destroy);
 router.get("/students/:id",StudentController.show);
 

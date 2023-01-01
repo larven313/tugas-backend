@@ -58,8 +58,18 @@ class StudentController {
     // Mencari data yang ingin diupdate
     const student = await Student.find(id);
 
+    const errors = validationResult(req);
+
     // Jika data ada, maka update data.
     if (student) {
+      if (!errors.isEmpty()) {
+        const err = new Error('Input value tidak sesuai');
+        err.errorStatus =  400;
+        err.data = errors.array();
+        
+        return res.status(400).json({ errors: errors.array() });
+      }
+  
       // Memanggil method update dari model Student.
       const student = await Student.update(id, req.body);
       const data = {
