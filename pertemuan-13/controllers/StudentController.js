@@ -33,15 +33,15 @@ class StudentController {
      * - Handle jika salah satu data tidak dikirim
      */
 
-    // const errors = validationResult(req);
+    const errors = validationResult(req);
 
-    // if (errors.isEmpty()) {
-      // const err = new Error('Input value tidak sesuai');
-      // err.errorStatus =  400;
-      // err.data = errors.array();
+    if (!errors.isEmpty()) {
+      const err = new Error('Input value tidak sesuai');
+      err.errorStatus =  400;
+      err.data = errors.array();
       
-    //   return res.status(400).json({ errors: errors.array() });
-    // }
+      return res.status(400).json({ errors: errors.array() });
+    }
     // Memanggil method create dari model Student.
     const student = await Student.create(req.body);
 

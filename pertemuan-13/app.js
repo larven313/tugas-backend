@@ -13,16 +13,8 @@ app.use(express.json());
 // Menggunakan routing (router)
 app.use(router);
 
-// app.use((error, req, res, next) => {
-//     const status = error.errorStatus || 500;
-//     const message = error.message;
-//     const data = error.data;
-    
-//     res.status(status).json({
-//         message: message,
-//         data : data
-//     });
-// });
-
 // Mendefinisikan port.
-app.listen(3000);
+const PORT = 3000;
+app.listen(PORT,()=>(
+    console.log(`Server running at: http://localhost:${PORT}`)
+));
