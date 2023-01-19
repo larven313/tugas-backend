@@ -1,6 +1,6 @@
 // import database
 const db = require("../config/database");
-
+``
 // buat Model Student
 class Student{
 //     static all(callback) {
